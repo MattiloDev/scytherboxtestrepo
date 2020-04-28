@@ -1,0 +1,48 @@
+
+usertype SessionKey;
+usertype Message;
+
+protocol EncrpytedExchange(Meter,Monitor)
+
+	{
+
+
+	role Meter {
+
+	fresh M: Message;
+	fresh TokenA: SessionKey;
+	var TokenB;
+
+	send_1(Meter,Monitor,{TokenA}k(k));
+	recv_2(Monitor,Meter,{TokenB}k(k));
+	claim(Meter,Running,Monitor,M);
+	send_3(Meter,Monitor,{M}k(k));
+
+	claim_Meter1(Meter, Secret, (k));
+	claim_Meter2(Meter, Secret, M);
+	claim_Meter3(Meter,Niagree);
+	claim_Meter4(Meter,Nisynch);
+
+	}
+
+	role Monitor {
+
+	var M;
+	var TokenA;
+	fresh TokenB: SessionKey;
+
+	recv_1(Meter,Monitor,{TokenA}k(k));
+	send_2(Monitor,Meter,{TokenB}k(k));
+	recv_3(Meter,Monitor,{M}k(k));
+
+	claim_Monitor1(Monitor, Secret, (k));
+	claim_Monitor2(Monitor, Secret, M);
+	claim_Meter3(Monitor,Niagree);
+	claim_Meter4(Monitor,Nisynch);
+
+
+
+	
+	   }
+
+}
